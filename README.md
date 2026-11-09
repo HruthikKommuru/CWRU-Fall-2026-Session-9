@@ -12,16 +12,53 @@ Build a support assistant that searches one Word handbook by meaning and answers
 
 Use **Python 3.13**; the pinned Pinecone integration requires Python below 3.14. The dependencies were installed together and verified on Python 3.13. One Google key powers both Gemini models; Pinecone needs its own key. API usage and index hosting may incur charges depending on your accounts.
 
+Clone the repository and enter its folder first:
+
 ```bash
 git clone https://github.com/HruthikKommuru/CWRU-Fall-2026-Session-9.git
 cd CWRU-Fall-2026-Session-9
-python3.13 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
 ```
 
-On Windows, create the environment with `py -3.13 -m venv .venv`, activate with `.venv\Scripts\Activate.ps1` in PowerShell, and use `Copy-Item .env.example .env`.
+### Create and activate the virtual environment
+
+A **virtual environment** gives this lab its own Python packages. Create it once in the repository folder; **activate it each time you open a new terminal** to work on the lab. The folder name `.venv` is a convention, and `-m venv` tells the selected Python interpreter to run its built-in environment-creation module.
+
+On **macOS or Linux** (Terminal, bash, or zsh):
+
+```bash
+python3.13 -m venv .venv          # Create the environment with Python 3.13.
+source .venv/bin/activate        # Start using its Python and command-line tools.
+python -m pip install -r requirements.txt  # Install packages into this environment.
+cp .env.example .env             # Create your private API-key configuration once.
+```
+
+On **Windows PowerShell**:
+
+```powershell
+py -3.13 -m venv .venv           # Create the environment with Python 3.13.
+.\.venv\Scripts\Activate.ps1     # Start using the environment in this terminal.
+python -m pip install -r requirements.txt  # Install packages into this environment.
+Copy-Item .env.example .env      # Create your private API-key configuration once.
+```
+
+If you use **Windows Command Prompt**, activate with `.venv\Scripts\activate.bat` and copy the key template with `copy .env.example .env` instead. If `python3.13` or `py -3.13` cannot be found, install Python 3.13 first, then reopen the terminal.
+
+Your prompt will usually start with `(.venv)` after activation. Check the selected interpreter and installer:
+
+```bash
+python --version                # Should report Python 3.13.x.
+python -m pip --version          # The printed installation path should contain .venv.
+```
+
+### Resume the lab in a new terminal
+
+Return to your cloned repository folder, then run the activation command for your shell again: `source .venv/bin/activate` on macOS/Linux, `.\.venv\Scripts\Activate.ps1` in PowerShell, or `.venv\Scripts\activate.bat` in Command Prompt. You do not need to recreate the environment, reinstall the same packages, or copy `.env.example` again; recopying it would overwrite the keys you already entered.
+
+Run `jupyter notebook session9_lab.ipynb` or a `python pipeline.py ...` command after activation. When finished, run `deactivate` to leave the environment in that terminal; this does not delete it. Closing the terminal also ends its activation.
+
+### Add the API keys
+
+The **`.env` file** holds configuration values; the **`.venv/` folder** holds Python and installed packages. They serve different purposes, and both are ignored by Git.
 
 Edit `.env` with your `GOOGLE_API_KEY` from [Google AI Studio](https://aistudio.google.com/apikey) and `PINECONE_API_KEY` from the [Pinecone console](https://app.pinecone.io/). Keep `.env` private; Git ignores it. Model names are constants at the top of both implementations so your instructor can change them if access changes; neither implementation switches providers automatically.
 
